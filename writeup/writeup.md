@@ -14,7 +14,7 @@ The pipeline for processing an image is about 7 steps and is outlined below:
 4. Mask out region of image based on knowledge of camera position
 5. Apply a Hough line transform to the masked out image
 6. Fit a line to the left and right lane line segments
-7. Add the Hough line image to the original image 
+7. Add the fitted lines to the original image 
 
 Here is the image we are starting with:
 
