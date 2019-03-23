@@ -46,6 +46,42 @@ The entire image should not concern us with the knowledge that the camera is in 
 
 ### Hough Line Transform
 
+The Hough line transform is a technique used to find lines in an edge detected image. At a high level it takes points in the image and describes them as sinusoidal curves where clustering of intersections identifies a line.   
+
+To illustrate let's take a line in an image described by the two points (1, 2) and (4, 6)
+
+![Image line](image_line.png)
+
+We can calculate the slope with the slope formula:
+```
+(6 - 2)/(4 - 1) = 4/3
+```
+
+Next we calculate the y-intercept:
+```
+2 = (3/4)*1 + b // gives us a y intercept of 1.25 or 1 1/4
+```
+
+Now we can plot this line as a single point in a different parameter space using the slope and the y intercept because the equation of a line can be determined from those two values. 
+
+![Hough Point](hough_point.png)
+
+We can additionally reason from a point in the image to a line in mb parameter space as well. The equation for a line in mb parameter space can be found with the following formula `b = y - xm`
+
+To demonstrate let's plot the following points in the image space: (1, 2), (3, 4), (4, 5):
+
+![Image Points](image_points.png)
+
+And now plotting the same points in the mb parameter space gives us:
+
+![Hough Intersections](hough_intersections.png)
+
+We can see that all of the lines in the mb parameter space intersect at the point (1, 1) which means a line with a slope of 1 and a y-intercept of 1 should fit the points. We can test this by overlaying the line described by those two values on the points in our original graph:
+
+![Hough Line Overlay](overlayed_hough_line.png)
+
+Unfortunately this approach is imperfect because vertical lines have an infinite slope so instead we use polar coordinates in what is known as Hough space. The y-axis in Hough space is Rho which is the distance of the line from the origin and theta which is the angle away from the horizontal. This allows us to represent vertical lines without the infinite slope problem. Instead of generating straight lines a sinusoidal wave is generated in Hough space instead and the intersections of the curves are determined to be a line in the image space based on a voting procedure.
+
 ![Hough Line Transform](stage_6.png)
 
 ### Fitting Lines to Segments
