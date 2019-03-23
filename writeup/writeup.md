@@ -86,11 +86,17 @@ Unfortunately this approach is imperfect because vertical lines have an infinite
 
 ### Fitting Lines to Segments
 
+The first step in fitting a left and right line to the detected lane lines is to determine which lines are part of the left lane and which are part of the right lane. We can imprecisely do this by creating an upper and lower threshold. In this case I used 0.8 and 0.3. We then calculate the slope of each line. If the line is between -0.8 and -0.3 we determine it is a left lane (it looks like it has a positive slope but remember the origin is in the upper left corner instead of the lower left corner). If the line is between 0.8 and 0.3 we determine it is a right lane. 
+
+We can then take the average slope of all the lines in the left lane and the average slope of all the lines in the right lane and fit a line through our left and right lane line data by calculating the x values when y is at the bottom of the image and when y is slightly under the horizon given the equations of the lines and then take the average of those x values to plot the endpoints of the line.
+
 ![Fitting Lines to Segments](stage_7.png)
 
-### Image Addition
+### Weighted Image Addition
 
-![Image Addition](stage_8.png)
+Lastly we use a weighted image addition to overlay the green lines onto the image with weight added to the green lines. If we were to use a normal add we would see the green lines start to disappear as they are added to whiter surfaces. 
+
+![Weighted Image Addition](stage_8.png)
 
 
 ## Possible Improvements
