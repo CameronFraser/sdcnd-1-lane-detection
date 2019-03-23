@@ -101,5 +101,8 @@ Lastly we use a weighted image addition to overlay the green lines onto the imag
 
 ## Possible Improvements
 
+There seems to be a lot of noise that gets picked up near the top of the region mask which can lead to some line data that matches slope threshold to get put in the lane line lists which throws off the average by quite a bit. I think a possible solution would be to create a threshold on positional data as well to ensure there are no outliers. 
 
-## Conclusion
+A region mask seems error prone due to different points where a camera could be fixed on a vehicle. I would assume that in a real scenario if a region mask is being used then the code would have more information about its position off the ground and on the vehicle and orientation angle so region boundaries could be calculated dynamically.
+
+The challenge video has two problems. One is the heavy line curvature in the road and the other is the shadows. Fitting a curve to the data points might be a better choice and exploring additional denoising techniques.
